@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>swiper延迟加载</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/swiper/dist/css/swiper.min.css">
+    <style type="text/css" rel="stylesheet">
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+        body{
+            font-size: 18px;
+            font-family: Cambria;
+            color:#000000;
+        }
+        .swiper-container{
+            width: 100%;
+            height:100%;
+        }
+        .swiper-slide{
+            border-radius: 4px;
+            text-align: center;
+            background: #000;
+        }
+
+        .swiper-slide img{
+            width:auto;
+            height:auto;
+            max-width: 100%;
+            max-height: 100%;
+            -ms-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img data-src="imgs/1.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </div>
+        <div class="swiper-slide">
+            <img data-src="imgs/2.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </div>
+        <div class="swiper-slide">
+            <img data-src="imgs/3.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </div>
+        <div class="swiper-slide">
+            <img data-src="imgs/4.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </div>
+        <div class="swiper-slide">
+            <img data-src="imgs/5.jpg" class="swiper-lazy"/>
+            <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </div>
+    </div>
+    <div class="swiper-pagination swiper-pagination-white"></div>
+    <div class="swiper-button-prev swiper-button-white"></div>
+    <div class="swiper-button-next swiper-button-white"></div>
+</div>
+<script src="node_modules/swiper/dist/js/swiper.min.js"></script>
+<script>
+    var mySwiper = new Swiper('.swiper-container',{
+        loop:true,
+        pagination:'.swiper-pagination',
+        paginationClickable:true,
+        grabCursor:true,
+        prevButton:'.swiper-button-prev',
+        nextButton:'.swiper-button-next',
+//        preloadImages:false,
+        lazyLoading:true,//使preloadImages为true无效
+    });
+</script>
+</body>
+</html>

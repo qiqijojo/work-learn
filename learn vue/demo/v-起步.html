@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <!-- 1111111-->
+    <div id="hello">
+        <p>{{message1}}</p>
+    </div>
+
+    <!--2222222-->
+    <div id="hover">
+        <p v-bind:title="message2"> Hover your mouse over me for a few seconds to see my dynamically bound title!</p>
+    </div>
+
+    <!-- 控制元素的显示-->
+    <div id="app-3">
+        <p v-if="seen">you can see me ~~~~</p>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="(item,index) in todos">{{index}}-{{item.text}}</li>
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{message5}}</p>
+        <button v-on:click = 'reverseMessage5'>reverse message5</button>
+        <!-- v-on:click/mouseover/mouseout/mousedown/dblclick........-->
+    </div>
+
+    <div id="app-6">
+        <p>{{message6}}</p>
+        <input v-model.lazy = 'message6'/>
+        <!--v-model:双向绑定-->
+    </div>
+
+    <div id="app-7">
+        <ol>
+            <li v-for="item in groceryList">{{item.text}}</li>
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+        </ol>
+    </div>
+
+    <div id="app-8">
+        <ul>
+            <li v-for="(v,k) in json"> {{k}}-{{v}} </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+    <script src="./node_modules/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        var a1 = new Vue({
+            el:'#hello',
+            data:{
+                message1:'hello good vue!'
+            }
+        });
+        var a2 = new Vue({
+            el:'#hover',
+            data:{
+                message2:"you loaded this page on"  +new Date()
+            }
+        });
+        var a3 = new Vue({
+            el:'#app-3',
+            data:{
+                seen:true
+            }
+        });
+        var a4 = new Vue({
+            el:'#app-4',
+            data:{
+                    todos:[
+
+                {text:'good javascrilpt'},
+                {text:'good vue.js'},
+                {text:'good applications'}
+            ]
+        }
+        });
+        a4.todos.pop();
+
+        var a5 = new Vue({
+            el:'#app-5',
+            data:{
+                message5:'wang qi'
+            },
+            methods:{
+                reverseMessage5:function(){
+                    this.message5 = this.message5.split('').reverse().join('');
+                }
+            }
+        });
+        var a6 = new Vue({
+            el:'#app-6',
+            data:{
+                message6:'你好啊！！！'
+            }
+        });
+
+
+
+        Vue.component('todo-item',{
+            props:['todo'],
+            template:'<li>{{todo.text}} </li>'
+        });
+        var a7 = new Vue({
+            el:'#app-7',
+            data:{
+                groceryList:[
+                    { text:'Vegetables'},
+                    { text:'Cheese' },
+                    { text:'potato' }
+                ]
+            }
+        });
+
+        var a8 = new Vue({
+            el:'#app-8',
+            data:{
+                json: {a:"aaa",b:'bbb',c:"ccc"}
+            }
+        })
+    </script>
+</body>
+</html>

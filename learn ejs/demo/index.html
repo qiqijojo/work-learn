@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ejs在客户端的使用方式</title>
+    <script src='jquery-1.10.2.min.js' type="text/javascript" charset="UTF-8"></script>
+    <script src="ejs.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="module.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+    <div id="show"></div>
+    <script type="text/html" id="module">
+        <% data.map(function(item){ %>
+            <h2> <%=item.header%> </h2>
+            <p> <%=item.paragraph%> </p>
+       <% }) %>
+    </script>
+</body>
+</html>

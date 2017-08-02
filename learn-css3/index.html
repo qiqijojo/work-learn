@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3</title>
+    <style type="text/css" rel="stylesheet">
+        body{
+            padding:10px;
+        }
+        div{
+            border:1px solid #000;
+        }
+        .translate{
+            transform: translate(50px,100px);
+        }
+        .rotate{
+            transform: rotate(90deg);
+        }
+        .scale{
+            text-align: center;
+            transform: scale(0.5);
+        }
+        .skew{
+            transform: skew(30deg);
+        }
+        .fix{
+            -webkit-transition: 2s;
+            -moz-transition: 2s;
+            -ms-transition: 2s;
+            -o-transition: 2s;
+            transition: 2s;
+        }
+        .fix:hover{
+            width: 200px;
+            height: 200px;
+            transform: rotate(180deg);
+        }
+
+        .flexBox{
+            display:flex;
+            width: auto;
+            height:300px;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .flexBox>div{
+            width:100px;
+            height:100px;
+        }
+        .flexBox>div:nth-of-type(1){
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="translate">(x,y)移动</div>-->
+<!--<div class="rotate">顺时针旋转，为负值时，逆时针旋转</div>-->
+<!--<div class="scale">改变元素的尺寸</div>-->
+<!--<div class="skew">元素（x，y）倾斜角度</div>-->
+<!--<div class="fix">混合过渡效果</div>-->
+<div class="flexBox">
+    <div>11111</div>
+    <div>22222</div>
+    <div>33333</div>
+</div>
+</body>
+</html>

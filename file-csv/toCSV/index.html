@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>读取文件内容</title>
+    <script type="text/javascript">
+        if(typeof FileReader == "undified") {
+            alert("浏览器不支持！");
+        }
+        function showDataByText() {  //获取文件里面的内容
+            var resultFile = document.getElementById("fileDemo").files[0];
+            if (resultFile) {
+                var reader = new FileReader();
+                reader.readAsText(resultFile,'gb2312');
+                reader.onload = function (e) {
+                    var text = this.result;
+                    document.getElementById("initial").innerHTML = "原始数据："+text;
+
+                    var arr = text.split('\r\n');     //读取完文件后，对文件内容进行操作，将字符串转换成数组
+                    var nullStr = arr.splice(arr.length-1,1);  //去掉分割出来的空字符串
+                    console.log(arr);
+
+                    var now = [];
+                    for(var i=0;i<arr.length;i++){    //对每一行数据增加一项--新链接
+                        var ss = arr[i].split(',');
+                        ss[ss.length] = ss[0]+'?'+'channelSource='+ss[1]+'&channelBusiness='+ss[2]+'&createFrom=tpa'+new Date().getTime();
+                        now.push(ss);
+                    }
+                    console.log(now);
+
+                    var urlData = now.join('\r\n');  //数组转换成字符串
+                    document.getElementById("final").innerHTML = "最终数据："+urlData;
+                    console.log(urlData)
+
+                    var filename = 'info.csv';   //利用a标签的download属性来下载并保存csv文件
+                    var compatible = "\uFEFF";
+                    var blob = new Blob([compatible + urlData], { type: 'text/csv;charset=utf-8;' });
+                    console.log(blob)
+                    if (navigator.msSaveBlob) { // IE 10+  ***  保存下载文件
+                        navigator.msSaveBlob(blob, filename);
+                    } else {
+                        var link = document.createElement("a");
+                        if (link.download !== undefined) {
+                            var url = URL.createObjectURL(blob);
+                            link.setAttribute("href", url);
+                            link.setAttribute("download", filename);
+                            link.style.visibility = 'hidden';     //兼容火狐，即可触发保存操作
+                            document.body.appendChild(link);
+                            link.click();    //触发保存操作
+                            document.body.removeChild(link);
+                        }
+                    }
+                };
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="file" name="fileDemo" id="fileDemo" multiple/>
+<input type="button" value="readAsText"  id="readAsText" onclick="showDataByText();"/>
+<div id="initial"></div>
+<div id="final"></div>
+</body>
+</html>

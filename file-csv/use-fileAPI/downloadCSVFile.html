@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js转换为csv/下载csv文件</title>
+
+</head>
+<body>
+<div>
+
+</div>
+<script type="text/javascript">
+    var people = [{
+        "name": "Arron",
+        "age": "22",
+        "sex" : "男",
+        "birthday": "1993-01-06",
+        "phone": "13187890289",
+        "hobby": "basketball"
+    },{
+        "name": "Jack",
+        "age" : "24",
+        "sex" : "男",
+        "birthday": "1991-02-22",
+        "phone": "13567454389",
+        "hobby": "football"
+    },{
+        "name": "Alice",
+        "age" : "21",
+        "sex" : "女",
+        "birthday": "1996-11-26",
+        "phone": "13187889509",
+        "hobby": "reading"
+    }];
+
+    var head = [['name','age','sex','birthday','phone','hobby']];
+    var p = people;
+    for(var i = 0 ; i < p.length; i++) {
+        head.push([p[i].name, p[i].age, p[i].sex, "'"+p[i].birthday, "'"+p[i].phone, p[i].hobby]);
+    }
+    var csvRows = [];
+    for(var i = 0 ; i < head.length; i++) {
+        csvRows.push(head[i].join(','))
+    }
+
+    var csvString = csvRows.join('\n');
+    console.log(csvString);
+    //        var bom = '\uFEFF';   //解决excel乱码问题
+    //        csvString = bom + csvString;
+    //        console.log(csvString)
+    //        var a = document.createElement('a');          //*****出来的结果不符合excel的那种表格*****
+    //        a.href = 'data:attachment/csv,'+encodeURI(csvString);
+    //        a.target = '_blank';
+    //        a.download = 'info.csv';
+
+    var filename = 'info';
+    var compatible = "\uFEFF";
+    var blob = new Blob([compatible + csvString], { type: 'text/csv;charset=utf-8;' });
+    console.log(blob)
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        var link = document.createElement("a");
+
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);                         //除了数字正常显示需要加’，其他都正确
+            link.setAttribute("download", filename + '.csv');
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+</script>
+</body>
+</html>

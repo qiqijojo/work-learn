@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wiper覆盖流效果</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="node_modules/swiper/dist/css/swiper.min.css">
+    <style type="text/css" rel="stylesheet">
+        body{
+            font-size: 18px;
+            font-family: Cambria;
+            color:#000000;
+        }
+        .swiper-container{
+            width:100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .swiper-slide{
+            display:-webkit-box;
+            display:-ms-flexbox;
+            display:-webkit-flex;
+            display:flex;
+
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+
+            border-radius: 4px;
+            text-align: center;
+
+            width: 300px;
+            height: 300px;
+        }
+
+        .swiper-container .swiper-wrapper .swiper-slide:nth-of-type(1n){
+            background: #007aff;
+        }
+        .swiper-container .swiper-wrapper .swiper-slide:nth-of-type(2n){
+            background-color:#f56730;
+        }
+
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">slider1</div>
+        <div class="swiper-slide">slider2</div>
+        <div class="swiper-slide">slider3</div>
+        <div class="swiper-slide">slider4</div>
+        <div class="swiper-slide">slider5</div>
+        <div class="swiper-slide">slider6</div>
+        <div class="swiper-slide">slider7</div>
+        <div class="swiper-slide">slider8</div>
+        <div class="swiper-slide">slider9</div>
+        <div class="swiper-slide">slider10</div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+<script src="node_modules/swiper/dist/js/swiper.min.js"></script>
+<script>
+    var mySwiper = new Swiper('.swiper-container',{
+        autoplay:2000,//可选选项，自动滑动
+        pagination:'.swiper-pagination',
+        effect:'coverflow',
+        grabCursor:true,
+        slidesPerView:'auto',//根据宽度自动显示图片数量
+        centeredSlides:true,//第一张图片居中显示
+        coverflow: {      //这些都是coverflow的默认值
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true
+        }
+    });
+</script>
+</body>
+</html>

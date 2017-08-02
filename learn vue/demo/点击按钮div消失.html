@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+
+   window.onload = function(){
+       var vm = new Vue({
+        el:'#box',
+        data:{
+            bool:true
+        }
+    });
+   }
+</script>
+<div id="box">
+    <!-- v-show=true or false...来控制元素的显示与隐藏-->
+    <div style="width:100px;height:100px;background: #f00" v-show="bool"></div>
+    <input type="button" value="按钮" v-on:click="bool=false" />
+</div>
+
+
+</body>
+</html>
