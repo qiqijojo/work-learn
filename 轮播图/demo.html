@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style type="text/css" rel="stylesheet">
+        *{
+            margin:0;
+            padding:0;
+            text-decoration: none;
+        }
+        body{
+            padding:20px;
+        }
+        #container{
+            width:600px;
+            height:400px;
+            border: 3px solid #333;
+            overflow: hidden;
+            position:relative;
+        }
+        #list{
+            width:4200px;
+            height:400px;
+            position:absolute;
+            z-index: 1;
+        }
+        #list img{
+            float: left;
+        }
+        #btns{
+            position:absolute;
+            bottom:20px;
+            left:250px;
+            height:10px;
+            width:100px;
+            z-index: 2;
+        }
+        #btns span{
+            cursor:pointer;
+            float: left;
+            border:1px solid #fff;
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background: #fff;
+            margin-right:5px;
+        }
+        #btns .on {
+            background: orangered;
+        }
+        #container .arrow{
+            cursor: pointer;
+            display:none;
+            line-height: 37px;
+            text-align: center;
+            font-size:36px;
+            font-weight:bold;
+            width:40px;
+            height:40px;
+            position:absolute;
+            z-index: 2;
+            top:180px;
+            background-color: RGBA(0,0,0,.3);
+            color:#fff;
+        }
+
+        #container:hover .arrow{
+            display: block;
+        }
+        #container .arrow:hover{
+            background-color: RGBA(0,0,0,.7);
+        }
+        #pre{
+            left:20px;
+        }
+        #next{
+            right:20px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="list" style="left: -600px;">
+        <img src="images/5.jpg" alt=""/>
+        <img src="images/1.jpg" alt=""/>
+        <img src="images/2.jpg" alt=""/>
+        <img src="images/3.jpg" alt=""/>
+        <img src="images/4.jpg" alt=""/>
+        <img src="images/5.jpg" alt=""/>
+        <img src="images/1.jpg" alt=""/>
+    </div>
+    <div id="btns">
+        <span index="1" class="on"></span>
+        <span index="2"></span>
+        <span index="3"></span>
+        <span index="4"></span>
+        <span index="5"></span>
+    </div>
+    <a href="javascript:;" id="pre" class="arrow">&lt;</a>
+    <a href="javascript:;" id="next" class="arrow">&gt;</a>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        var container = document.getElementById('container'),
+            list = document.getElementById('list'),
+            btns = document.getElementById('btns').getElementsByTagName('span'),
+            pre = document.getElementById('pre'),
+            next = document.getElementById('next');
+        var index = 1;
+        var animated = false;
+        var timer;
+
+        function autoplay(){
+            timer = setInterval(function(){
+                next.onclick();
+            },3000)
+        }
+        function stop(){
+            clearInterval(timer);
+        }
+        function showBtn(){
+            for(var i=0;i<btns.length;i++){
+                if(btns[i].className === 'on'){
+                    btns[i].className = '';
+                }
+            }
+            if(index > 5){
+                index=1;
+            }else if(index < 1){
+                index = 5;
+            }
+            btns[index-1].className = 'on';
+        }
+        function animate(offset){
+            animated = true;
+            var newLeft = parseInt(list.style.left) + offset;
+            var time = 300;//位移总时间
+            var interVal = 10;//位移间隔时间
+            var speed = offset/(time/interVal);
+            function go(){
+                if((speed<0 && parseInt(list.style.left) > newLeft) || (speed>0 && parseInt(list.style.left) < newLeft)){
+                    list.style.left = parseInt(list.style.left) + speed + 'px';
+                    setTimeout(go,interVal);
+                }else{
+                    animated = false;
+                    list.style.left = newLeft + "px";
+
+                    if(newLeft < -3000){
+                        list.style.left = -600 + "px";
+                    }else if(newLeft > -600){
+                        list.style.left = -3000 + "px";
+                    }
+                }
+            }
+            go();
+        }
+        next.onclick = function(){
+            index += 1;
+            showBtn();
+            if(!animated){
+                animate(-600);
+            }
+        };
+        pre.onclick = function(){
+            index -= 1;
+            showBtn();
+            if(!animated){
+                animate(600);
+            }
+        };
+        for(var i=0;i<btns.length;i++){
+            btns[i].onclick = function(){
+                if(this.className === 'on'){
+                    return;
+                }
+                var myIndex = parseInt(this.getAttribute('index'));
+                var offset = -600 *(myIndex - index);
+                index = myIndex;
+                showBtn();
+                if(!animated){
+                    animate(offset);
+                }
+            }
+        }
+
+        container.onmouseover = stop;
+        container.onmouseout = autoplay;
+    }
+</script>
+</body>
+</html>
